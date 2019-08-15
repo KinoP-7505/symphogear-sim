@@ -33,7 +33,12 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-extra-semi": "warn",
+      "quotes": ["warn", "single"],
+      "space-before-blocks": ["warn", { "functions": "always" }],
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

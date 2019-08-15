@@ -50,9 +50,19 @@ export default {
   },
   methods: {
     onClickStart: function() {
+      if (this.status === 0) {
+        // 最終決戦抽選
+        this.$store.dispatch('lotStock')
+        let stock = this.$store.state.lotStock
+        for (let index = 0; index < stock.length; index++) {
+          console.log('stock result', `index[${index}] : ${stock[index]}`)
+        }
+      }
       ++this.status
       if (this.status > 5) {
+        console.log('リセット')
         this.status = 0
+        this.$store.commit('setLot', [])
       }
     }
   }

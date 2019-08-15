@@ -45,21 +45,29 @@ const v15R = {
 function normalLot() {
     let count = 0
     let hitFlg = true
-    let lot = 0
-    let result = 0
+    let res = {}
     while (hitFlg) {
         ++count
-        lot = Math.floor(Math.random()*maxLot)
-        result = getLotResult(lot)
+        res = randamLot()
         // 4R,15R当選の場合はループ終了
-        if (result > 1) {
+        if (res.result > 1) {
             hitFlg = false
         }
     }
     // 抽選結果をオブジェクトに詰めて返却
     return {
         count: count,
-        lotResult: result
+        lotResult: res.result
+    }
+}
+
+// 抽選と結果を返す
+function randamLot() {
+    let lot = Math.floor(Math.random()*maxLot)
+    let result = getLotResult(lot)
+    return {
+        lot: lot,
+        result: result
     }
 }
 
@@ -78,6 +86,7 @@ function getLotResult(value) {
     }
     while (roopFlg) {
         ++result
+        // console.log('calcValue = ', calcValue)
         switch (result) {
             case rightAttack.id:  // 右打ち判定
                 calcValue -= lose.value
@@ -86,7 +95,7 @@ function getLotResult(value) {
                 }
                 break
             case normal4R.id:  // 4R判定
-                calcValue -= lose.value
+                calcValue -= rightAttack.value
                 if (calcValue < normal4R.value) {
                     roopFlg = false
                 }
@@ -98,19 +107,23 @@ function getLotResult(value) {
                 }
                 break
             default:
+                roopFlg = false
                 break
         }
     }
+    // console.log('result calcValue = ', calcValue)
+
     // 結果返却
     return result
 }
 
 const utils = {
     normalLot,
+    randamLot,
     lose,
     rightAttack,
     normal4R,
-    normal15R
+    normal15R,
 }
 export default utils
 export {
@@ -118,5 +131,6 @@ export {
     lose,
     rightAttack,
     normal4R,
-    normal15R
+    normal15R,
+    getLotResult
 }
