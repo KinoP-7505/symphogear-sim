@@ -2,6 +2,7 @@
   <div class="home">
     <StartScreen v-if="showStart"/>
     <NormalScreen v-if="showNormal"/>
+    <LastBattle v-if="showLastBattle"/>
   </div>
 </template>
 
@@ -9,22 +10,26 @@
 // @ is an alias to /src
 import StartScreen from '@/components/StartScreen.vue'
 import NormalScreen from '@/components/NormalScreen.vue'
+import LastBattle from '@/components/LastBattle.vue'
 
 export default {
   name: 'home',
   data () {
     return {
       showStart: true,
-      showNormal: false
+      showNormal: false,
+      showLastBattle: false
     }
   },
   components: {
     StartScreen,
-    NormalScreen
+    NormalScreen,
+    LastBattle
   },
   mounted () {
     this.showStart = true
     this.showNormal = false
+    this.showLastBattle = false
   },
   computed: {
     // Storeを監視
@@ -39,6 +44,10 @@ export default {
         case 1:
           this.showStart = false
           this.showNormal = true
+          break
+        case 2:
+          this.showNormal = false
+          this.showLastBattle = true
           break
         default:
           this.showStartScreen = true
