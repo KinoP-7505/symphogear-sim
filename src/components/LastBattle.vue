@@ -6,16 +6,38 @@
     <div>
       <button @click="onClickStart">{{buttonLabel}}</button>
     </div>
-
+    <div>
+      <span>{{panels[0]}}</span>
+    </div>
+    <div>
+      <span>{{panels[1]}}</span>
+    </div>
+    <div>
+      <span>{{panels[2]}}</span>
+    </div>
+    <div>
+      <span>{{panels[3]}}</span>
+    </div>
+    <div>
+      <span>{{panels[4]}}</span>
+    </div>
   </div>
 </template>
 <script>
-// import utils from '@/utility/utils.js'
+import utils from '@/utility/utils.js'
 export default {
   name: 'LastBattle',
   data () {
+    let panels = [
+      'パネル１',
+      'パネル２',
+      'パネル３',
+      'パネル４',
+      'パネル５'
+    ]
     return {
-      status: 0
+      status: 0,
+      panels: panels
     }
   },
   computed: {
@@ -54,7 +76,9 @@ export default {
         // 最終決戦抽選
         this.$store.dispatch('lotStock')
         let stock = this.$store.state.lotStock
-        for (let index = 0; index < stock.length; index++) {
+        for (let index = 0; index < 5; index++) {
+           let panel = utils.getLastBattleCharactor(stock[index])
+           this.panels[index] = panel.name
           console.log('stock result', `index[${index}] : ${stock[index]}`)
         }
       }
@@ -63,6 +87,16 @@ export default {
         console.log('リセット')
         this.status = 0
         this.$store.commit('setLot', [])
+        let panelName = [
+          'パネル１',
+          'パネル２',
+          'パネル３',
+          'パネル４',
+          'パネル５'
+        ]
+        for (let index = 0; index < 5; index++) {
+           this.panels[index] = panelName[index]
+        }        
       }
     }
   }

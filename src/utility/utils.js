@@ -117,20 +117,89 @@ function getLotResult(value) {
     return result
 }
 
+// 最終決戦のパネルを取得する
+function getLastBattleCharactor(result) {
+    let panelType = 0
+    if (result === 0) {
+        panelType = patternLoseLBC()
+    } else {
+        panelType = patternWinLBC()
+    }
+    // パネルobjを返す
+    return lastBattlePannel[panelType]
+}
+
+// 最終決戦敗北時パネル
+function patternLoseLBC() {
+    let lot = Math.floor(Math.random()*251)
+    let type = 0
+    // 選択パネル
+    if (lot < 92) {
+        // ちょせえ
+        type = 1
+    } else if (lot < (92 + 91)) {
+        // 防人
+        type = 2
+    } else if (lot < (92 + 91 + 60)) {
+        // ビッキー
+        type = 3
+    } else {
+        // 絶唱
+        type = 4
+    }
+    return type
+}
+
+const lastBattlePannel = [
+    { type: 0, name: '未抽選' },
+    { type: 1, name: 'クリス' },
+    { type: 2, name: 'さきもり' },
+    { type: 3, name: 'ビッキー' },
+    { type: 4, name: '絶唱' },
+    { type: 5, name: '全員' },
+    { type: 77, name: 'ＷＩＮ' },
+    { type: 88, name: 'ＬＯＳＥ' }
+]
+
+// 最終決戦勝利時パネル
+function patternWinLBC() {
+    let lot = Math.floor(Math.random()*7)
+    let type = 0
+    // 選択パネル
+    if (lot < 2) {
+        // ちょせえ
+        type = 1
+    } else if (lot < 4) {
+        // 防人
+        type = 2
+    } else if (lot < 6) {
+        // ビッキー
+        type = 3
+    } else {
+        // 絶唱
+        type = 4
+    }
+    return type
+}
+
 const utils = {
     normalLot,
     randamLot,
+    getLastBattleCharactor,
     lose,
     rightAttack,
     normal4R,
     normal15R,
+    lastBattlePannel
 }
 export default utils
 export {
     normalLot,
+    getLastBattleCharactor,
     lose,
     rightAttack,
     normal4R,
     normal15R,
-    getLotResult
+    getLotResult,
+    lastBattlePannel
 }
