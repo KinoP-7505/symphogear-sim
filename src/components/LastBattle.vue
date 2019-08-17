@@ -25,6 +25,7 @@
 </template>
 <script>
 import utils from '@/utility/utils.js'
+import BounusInfo from '@/dto/BonusInfo.js'
 export default {
   name: 'LastBattle',
   data () {
@@ -36,8 +37,9 @@ export default {
       'パネル５'
     ]
     return {
-      status: 0,
-      panels: panels
+      status: 0,  // 現在のボタン状態
+      panels: panels,  // パネル情報
+      stock: []  // 内部５回の当落情報
     }
   },
   computed: {
@@ -63,8 +65,11 @@ export default {
         case 5:
             label = '５戦目の結果'
             break
+        case 99:
+            label = 'ＳＣ突入'
+            break
         default:
-            label = '右を狙って！！'
+            label = 'リセット'
             break
       }
       return label
@@ -73,17 +78,48 @@ export default {
   methods: {
     onClickStart: function() {
       if (this.status === 0) {
-        // 最終決戦抽選
+        // 最終決戦抽選とキャラパネル表示
         this.$store.dispatch('lotStock')
-        let stock = this.$store.state.lotStock
+        // ディープコピーを行う
+        this.stock = this.$store.state.lotStock
         for (let index = 0; index < 5; index++) {
-           let panel = utils.getLastBattleCharactor(stock[index])
-           this.panels[index] = panel.name
-          console.log('stock result', `index[${index}] : ${stock[index]}`)
+          let panel = utils.getLastBattleCharactor(this.stock[index].id)
+          this.panels[index] = panel.name
+          console.log('stock result', `index[${index}] : ${this.stock[index].label}`)
         }
+      } else if (1 <= this.status && this.status <= 5) {
+        let idx = this.status - 1
+        if (this.stock[0].id > 0) {
+          // 当選
+          this.panels[idx] = this.panels[idx] + '　>>> 勝利 ' + this.stock[0].label
+          // 勝利時は状態を勝利に書き換える
+          this.status = 99
+          // ボーナス情報を記録する
+          let bonus = new BonusInfo()
+          bonus.index = this.$store.getters.nextBonusIndex
+          bonus.count = this.status
+          bonus.type = this.stock[0].id
+          bonus.label = this.stock[0].label
+          bonus.lotNumber = this.stock[0].lot
+          this.$store.commit('saveBonus', bonus)
+
+          return
+        } else {
+          // ハズレ
+          this.panels[idx] = this.panels[idx] + '　>>> 敗北'
+        }
+        // Stock[0]を削除する
+        this.$store.commit('shiftLot')
+
+      } else if (this.status === 99) {
+        // ＳＣ画面へ遷移する
+        return
       }
+
+      // 状態を１上げる
       ++this.status
-      if (this.status > 5) {
+
+      if (this.status === 7) {
         console.log('リセット')
         this.status = 0
         this.$store.commit('setLot', [])

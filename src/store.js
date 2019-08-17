@@ -9,14 +9,19 @@ export default new Vuex.Store({
     // 画面状態
     screenId: '',  
     // 抽選結果をリスト格納する。抽選中＋保留で最大5要素
-    lotStock: []
+    lotStock: [],
+    // 当選情報  bounusInfo配列
+    bonusHistory: []
   },
   getters: {
     // 保留リストの0番を返す
-    getOneStrock(state) {
+    oneStock(state) {
       if (state.lotStock.length > 0) {
         return state.lotStock[0]
       } 
+    },
+    nextBonusIndex(state) {
+      return state.bonusHistory.length + 1
     }
   },
   mutations: {
@@ -29,22 +34,24 @@ export default new Vuex.Store({
     },
     setLot(state, ary) {
       state.lotStock = ary
+    },
+    // lotStcokの先頭を削除する
+    shiftLot(state) {
+      state.lotStock.shift()
+    },
+    saveBonus(state, bonus) {
+      state.bonusHistory.push(bonus)
     }
   },
   actions: {
-    // lotStcokの先頭を削除する
-    shiftLot({state, commit}) {
-      let ary = state.lotStock.shift()
-      commit('setLot', ary)
-    },
     lotStock({state, commit}) {
       // 5要素までstockする
       while (state.lotStock.length < 5) {
         // 抽選する
-        let res = utils.randamLot()
+        let result = utils.randamLot()
        
         // 結果をPushコミットする
-        commit('pushLot', res.result)
+        commit('pushLot', result)
       }
     }
   }
