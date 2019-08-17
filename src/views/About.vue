@@ -31,57 +31,91 @@ export default {
     onClickStart: function() {
       let values = [
         12792720, // ハズレ閾値
-        1998000, // 右打ち閾値
+        999000,
+        139860,
+        59940,
+        799200,
         73656, // 4R閾値
         744 // 15R閾値
       ]
 
+      // 判定閾値
+      let res0Val = values[0]
+      let res1Val = res0Val + values[1]
+      let res2Val = res1Val + values[2]
+      let res3Val = res2Val + values[3]
+      let res4Val = res3Val + values[4]
+      let res5Val = res4Val + values[5]
+      let res6Val = res5Val + values[6]
+
       let lot = {}
       let testValue = 0
-      let baseValue = 0
       // 閾値テスト
 
-      baseValue +=  values[0]
       // ハズレ（０）max
-      testValue = baseValue - 1
+      testValue = res0Val - 1
       lot = getLotResult(testValue)
-      console.log('test1 0', lot)
+      console.log('test1 loss 0', lot)
 
-      // 右打ち（１）min
-      testValue = baseValue
+      // 右打ち4R（1）min
+      testValue = res0Val
       lot = getLotResult(testValue)
-      console.log('test2 1', lot)
+      console.log('test2 R4Rmin 1', lot)
 
-      baseValue += values[1]
-
-      // 右打ち（１）max
-      testValue = baseValue - 1
+      // 右打ち4R（1）max
+      testValue = res1Val - 1
       lot = getLotResult(testValue)
-      console.log('test3 1', lot)      
+      console.log('test3 R4RMax 1', lot)      
 
-      // 4R（2）min
-      testValue = baseValue
+      // 右打ち8R（2）min
+      testValue = res1Val
       lot = getLotResult(testValue)
-      console.log('test4 2', lot)
+      console.log('test4 R8Rmin 2', lot)
 
-      baseValue += values[2]
-
-      // 4R（2）max
-      testValue = baseValue - 1
+      // 右打ち8R（2）max
+      testValue = res2Val - 1
       lot = getLotResult(testValue)
-      console.log('test5 2', lot)      
+      console.log('test5 R8Rmax 2', lot)      
 
-      // 15R（3）min
-      testValue = baseValue
+      // 右打ち12R（3）min
+      testValue = res2Val
       lot = getLotResult(testValue)
-      console.log('test6 3', lot)
+      console.log('test6 R12Rmin 3', lot)
 
-      baseValue += values[3]
-
-      // 15R（3）
-      testValue = baseValue - 1
+      // 右打ち12R（3）max
+      testValue = res3Val - 1
       lot = getLotResult(testValue)
-      console.log('test7 3', lot)      
+      console.log('test7 R12Rmax 3', lot)    
+
+      // 右打ち15R（4）min
+      testValue = res3Val
+      lot = getLotResult(testValue)
+      console.log('test8 R15Rmin 4', lot)
+
+      // 右打ち15R（4）max
+      testValue = res4Val - 1
+      lot = getLotResult(testValue)
+      console.log('test9 R15Rmax 4', lot)    
+
+      // 4R（5）min
+      testValue = res4Val
+      lot = getLotResult(testValue)
+      console.log('test10 4Rmin 5', lot)
+
+      // 4R（5）max
+      testValue = res5Val - 1
+      lot = getLotResult(testValue)
+      console.log('test11 4Rmax 5', lot)      
+
+      // 15R（6）min
+      testValue = res6Val
+      lot = getLotResult(testValue)
+      console.log('test12 15Rmin 6', lot)
+
+      // 15R（6）
+      testValue = res6Val - 1
+      lot = getLotResult(testValue)
+      console.log('test13  15Rmin 6', lot)      
     }
   }
 }
