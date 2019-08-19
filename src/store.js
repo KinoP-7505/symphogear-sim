@@ -22,6 +22,19 @@ export default new Vuex.Store({
     },
     nextBonusIndex(state) {
       return state.bonusHistory.length + 1
+    },
+    numVStock(state) {
+      let num = 0
+      for (let i = 1; i < state.lotStock.length; i++) {
+        // 保留１～４が当選の場合
+        // console.log('numVStock', `i=${i} // id = ${state.lotStock[i].id}`)
+        if (state.lotStock[i].id > 0) {
+          // 出現数をカウント
+          ++num
+        }
+      }
+      // ストック数を返す
+      return num
     }
   },
   mutations: {
@@ -39,6 +52,13 @@ export default new Vuex.Store({
     shiftLot(state) {
       state.lotStock.shift()
     },
+    saveVStock(state) {
+      state.lotStock.forEach(lot => {
+        if(lot.id > 0) {
+          lot.vStock = true
+        }
+      })
+    },
     saveBonus(state, bonus) {
       state.bonusHistory.push(bonus)
     }
@@ -53,6 +73,7 @@ export default new Vuex.Store({
         // 結果をPushコミットする
         commit('pushLot', result)
       }
+      console.log('lotStock length', state.lotStock.length)
     }
   }
 })

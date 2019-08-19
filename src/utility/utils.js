@@ -83,7 +83,8 @@ function normalLot() {
     // 抽選結果をオブジェクトに詰めて返却
     return {
         count: count,
-        lotResult: res.result
+        id: res.id,
+        label: res.label
     }
 }
 
@@ -94,7 +95,8 @@ function randamLot() {
     return {
         lot: lot,
         id: result.id,
-        label: result.label
+        label: result.label,
+        vStock: false
     }
 }
 

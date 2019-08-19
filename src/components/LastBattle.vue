@@ -25,7 +25,7 @@
 </template>
 <script>
 import utils from '@/utility/utils.js'
-import BounusInfo from '@/dto/BonusInfo.js'
+import BonusInfo from '@/dto/BonusInfo.js'
 export default {
   name: 'LastBattle',
   data () {
@@ -92,16 +92,28 @@ export default {
         if (this.stock[0].id > 0) {
           // 当選
           this.panels[idx] = this.panels[idx] + '　>>> 勝利 ' + this.stock[0].label
+          // ボーナス情報を記録する
+          let bonus = new BonusInfo(
+            this.$store.getters.nextBonusIndex,
+            this.status,
+            this.stock[0].id,
+            this.stock[0].label,
+            this.stock[0].lot
+          )
+          console.log('BonusInfo', bonus)
+          this.$store.commit('saveBonus', bonus)
+
+          // VStock判定
+          this.$store.commit('saveVStock')
+          let numVStock = this.$store.getters.numVStock
+          console.log('VStock', numVStock)
+          if (numVStock > 0) {
+            // VStock数を表示
+            this.panels[idx] = this.panels[idx] + ` >>> [VStock ${numVStock}]`
+          } 
+
           // 勝利時は状態を勝利に書き換える
           this.status = 99
-          // ボーナス情報を記録する
-          let bonus = new BonusInfo()
-          bonus.index = this.$store.getters.nextBonusIndex
-          bonus.count = this.status
-          bonus.type = this.stock[0].id
-          bonus.label = this.stock[0].label
-          bonus.lotNumber = this.stock[0].lot
-          this.$store.commit('saveBonus', bonus)
 
           return
         } else {
@@ -112,7 +124,10 @@ export default {
         this.$store.commit('shiftLot')
 
       } else if (this.status === 99) {
+        // Stock[0]を削除する
+        this.$store.commit('shiftLot')        
         // ＳＣ画面へ遷移する
+        this.$store.commit('saveScreenName', 3)
         return
       }
 

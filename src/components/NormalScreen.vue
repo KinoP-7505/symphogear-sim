@@ -17,20 +17,14 @@ export default {
   name: 'NormalScreen',
   data () {
     return {
-      lotteryValue: 0,
+      lotteryLabel: '',
       lotCount: 0,
       isNext: false
     }
   },
   computed: {
     showLot: function () {
-      let label = utils.lose.label
-      if (this.lotteryValue === utils.normal4R.id) {
-        label = utils.normal4R.label
-      } else if (this.lotteryValue === utils.normal15R.id) {
-        label = utils.normal15R.label
-      }
-      return `抽選結果:${label} / ${this.lotCount}回抽選` 
+      return `抽選結果:${this.lotteryLabel} / ${this.lotCount}回抽選` 
     },
     buttonLabel: function () {
       if (this.isNext) {
@@ -48,9 +42,9 @@ export default {
         this.$store.commit('saveScreenName', 2)
       } else {
         // 抽選を行う
-        let execLot = utils.normalLot()
-        this.lotteryValue = execLot.lotResult
-        this.lotCount = execLot.count
+        let resLot = utils.normalLot()
+        this.lotteryLabel = resLot.label
+        this.lotCount = resLot.count
         this.isNext = true
       }
     }
