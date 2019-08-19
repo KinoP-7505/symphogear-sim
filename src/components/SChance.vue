@@ -68,6 +68,9 @@ export default {
 
         // 処理終了
         return
+      } else if (this.count > 11) {
+        // 結果画面へ遷移
+        this.$store.commit('saveScreenName', 4)
       }
 
       // カウント数アップ

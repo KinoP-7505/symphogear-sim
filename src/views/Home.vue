@@ -4,6 +4,7 @@
     <NormalScreen v-if="showNormal"/>
     <LastBattle v-if="showLastBattle"/>
     <SChance v-if="showSChance"/>
+    <ResultScreen v-if="showResult"/>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import StartScreen from '@/components/StartScreen.vue'
 import NormalScreen from '@/components/NormalScreen.vue'
 import LastBattle from '@/components/LastBattle.vue'
 import SChance from '@/components/SChance.vue'
+import ResultScreen from '@/components/ResultScreen.vue'
 export default {
   name: 'home',
   data () {
@@ -20,19 +22,22 @@ export default {
       showStart: true,
       showNormal: false,
       showLastBattle: false,
-      showSChance: false
+      showSChance: false,
+      showResult: false
     }
   },
   components: {
     StartScreen,
     NormalScreen,
     LastBattle,
-    SChance
+    SChance,
+    ResultScreen
   },
   mounted () {
     this.showStart = true
     this.showNormal = false
     this.showLastBattle = false
+    this.showResult = false
   },
   computed: {
     // Storeを監視
@@ -44,6 +49,12 @@ export default {
     // Store.screenIdが変更された場合、画面表示を切り替える
     nowScreenId: function (id) {
       switch (id) {
+        case 0:
+          this.showStart = true
+          this.showNormal = false
+          this.showLastBattle = false
+          this.showResult = false
+          break
         case 1:
           this.showStart = false
           this.showNormal = true
@@ -55,7 +66,11 @@ export default {
         case 3:
           this.showLastBattle = false
           this.showSChance = true
-          break          
+          break
+        case 4:
+          this.showSChance = false
+          this.showResult = true
+          break 
         default:
           this.showStartScreen = true
           this.showNormal = false

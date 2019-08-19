@@ -11,6 +11,10 @@
 <script>
 export default {
   name: 'StartScreen',
+  mounted () {
+    // stateの初期化
+    this.$store.commit('initState')
+  },
   methods: {
     onClickStart: function() {
       this.$store.commit('saveScreenName', 1)

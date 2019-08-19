@@ -38,6 +38,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    // stateを初期化
+    initState(state) {
+      state.lotStock = []
+      state.bonusHistory = []
+    },
     // 画面名を保存
     saveScreenName(state, screenId) {
       state.screenId = screenId
