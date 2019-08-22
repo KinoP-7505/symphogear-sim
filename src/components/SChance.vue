@@ -78,34 +78,43 @@ export default {
       // count7以下の場合抽選を行う（保留ストック）
       if (this.count <= 7) {
         this.$store.dispatch('lotStock')
-        console.log('SC', `count = ${this.count} // lotRes = ${this.lot0.id}`) 
-      } else {
-        console.log('SC', this.lot0) 
       }
 
       // SC抽選表示
       if (this.count <= 7) {
-        let msg = `BATTELE ${this.count}`
-
+        let msg1 = `BATTELE ${this.count}`
+        let msg2 = ''
         // 当選判定
         if (this.lot0.id === 0) {
           // ハズレ
-          msg += ' | 敗北' 
+          msg2 = ' | 敗北' 
+          this.messages.push(msg1 + msg2)
           // Stock[0]を削除する
           this.$store.commit('shiftLot')          
         } else {
           // 当選
-          if (this.lot0.vStock) {
-            // vStock告知済み
-            msg += ' | 勝利 >>> ' + this.lot0.label
-          } else {
-            // vStock判定を行う
-            msg += ' | 勝利 >>> ' + this.lot0.label
-          }
-          // 勝利フラグON
           this.winFlg = true
+
+          // VStock当選の場合
+          if (this.lot0.vStock) {
+            // vStock当選告知
+            msg2 = ' | ぱんぱかぱーん！開放！ >>> ' + this.lot0.label
+            this.messages.push(msg1 + msg2)
+          } else {
+            // メッセージ
+            msg2 = ' | 勝利 >>> ' + this.lot0.label
+            this.messages.push(msg1 + msg2)
+            // VStock判定
+            this.$store.commit('saveVStock')
+            let numVStock = this.$store.getters.numVStock
+            console.log('VStock', numVStock)
+            // VStockがある場合、VStock表示
+            if (numVStock > 0) {
+              // ここ直したい・・・
+              this.messages.push(`VStock ${numVStock}!!`)
+            } 
+          }
         }
-        this.messages.push(msg)
       } else if (this.count <= 11) {
         console.log('流れ星判定')
         // 流れ星判定（保留当選）
@@ -125,7 +134,7 @@ export default {
         // 流れ星成功
         if (this.winFlg) {
           // 流れ星当選
-          let msg = `まだ響と流れ星を見ていない！（抽選${this.count}回目当選 >>> ${this.lot0.label}` 
+          let msg = `まだ響と流れ星を見ていない！（抽選${this.count}回目当選） >>> ${this.lot0.label}` 
           this.messages.push(msg)          
         } else {
           // 流れ星失敗

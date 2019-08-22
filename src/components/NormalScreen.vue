@@ -13,6 +13,7 @@
 </template>
 <script>
 import utils from '@/utility/utils.js'
+import BonusInfo from '@/dto/BonusInfo.js'
 export default {
   name: 'NormalScreen',
   data () {
@@ -43,6 +44,17 @@ export default {
       } else {
         // 抽選を行う
         let resLot = utils.normalLot()
+        // ボーナス情報を記録する
+        let bonus = new BonusInfo(
+          this.$store.getters.nextBonusIndex,
+          resLot.count,
+          resLot.id,
+          resLot.label,
+          0
+        )
+        console.log('first BonusInfo', bonus)
+        this.$store.commit('saveBonus', bonus)
+
         this.lotteryLabel = resLot.label
         this.lotCount = resLot.count
         this.isNext = true

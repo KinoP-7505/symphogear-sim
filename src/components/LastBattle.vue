@@ -65,6 +65,9 @@ export default {
         case 5:
             label = '５戦目の結果'
             break
+        case 6:
+            label = '不承不承ながら右打ちしましょう'
+            break
         case 99:
             label = 'ＳＣ突入'
             break
@@ -117,38 +120,28 @@ export default {
 
           return
         } else {
-          // ハズレ
-          this.panels[idx] = this.panels[idx] + '　>>> 敗北'
+          // 5戦目の敗北
+          if (this.status === 5) {
+            this.panels[idx] += ' >>> わたしは勝機を零しました'
+          } else {
+            this.panels[idx] += ' >>> 敗北'
+          }
         }
         // Stock[0]を削除する
         this.$store.commit('shiftLot')
-
       } else if (this.status === 99) {
         // Stock[0]を削除する
-        this.$store.commit('shiftLot')        
+        this.$store.commit('shiftLot')
         // ＳＣ画面へ遷移する
         this.$store.commit('saveScreenName', 3)
         return
+      } else if (this.status === 6) {
+        // スタートへ戻る
+        console.log('最終決戦敗北')
+        this.$store.commit('saveScreenName', 0)
       }
-
       // 状態を１上げる
       ++this.status
-
-      if (this.status === 7) {
-        console.log('リセット')
-        this.status = 0
-        this.$store.commit('setLot', [])
-        let panelName = [
-          'パネル１',
-          'パネル２',
-          'パネル３',
-          'パネル４',
-          'パネル５'
-        ]
-        for (let index = 0; index < 5; index++) {
-           this.panels[index] = panelName[index]
-        }        
-      }
     }
   }
 }

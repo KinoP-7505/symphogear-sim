@@ -23,9 +23,20 @@ export default {
   mounted() {
     // メッセージを作成
     let history = this.$store.state.bonusHistory
+    let hisCount = this.$store.state.bonusHistory.length
     history.forEach(his => {
-      let msg = `${his.index}回目 : ${his.label}`
-      this.messages.push(msg)
+      if (his.index === 1) {
+        this.messages.push(`<<< 初当たり：${his.count} // ${his.label} >>>`)
+        if (hisCount === 1) {
+          this.messages.push('<<< 最終決戦敗北：わたしは勝機を零しました >>>')
+        }
+      } else if (his.index === 2) {
+        this.messages.push(`<<< 最終決戦：${his.count}戦目勝利 // ${his.label} >>>`)
+        this.messages.push('<<< シンフォギアチャンス突入 >>>')
+      } else {
+        let msg = `${his.index}唱目 : ${his.label}`
+        this.messages.push(msg)
+      }
     })
   },
   methods: {
