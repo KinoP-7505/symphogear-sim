@@ -66,7 +66,7 @@ export default {
             label = '５戦目の結果'
             break
         case 6:
-            label = '不承不承ながら右打ちしましょう'
+            label = '不承不承ながら左打ちしましょう'
             break
         case 99:
             label = 'ＳＣ突入'

@@ -5,6 +5,12 @@
     <LastBattle v-if="showLastBattle"/>
     <SChance v-if="showSChance"/>
     <ResultScreen v-if="showResult"/>
+
+    <p>ボタンを押すとモーダルウィンドウが開きます</p>
+    <button @click="showModal = true">開く</button>
+
+    <!-- コンポーネント MyModal -->
+    <ModalInput v-if="showModal" @close="closeModal()"></ModalInput>
   </div>
 </template>
 
@@ -15,6 +21,9 @@ import NormalScreen from '@/components/NormalScreen.vue'
 import LastBattle from '@/components/LastBattle.vue'
 import SChance from '@/components/SChance.vue'
 import ResultScreen from '@/components/ResultScreen.vue'
+
+import ModalInput from '@/components/Modal/ModalInputNumber.vue'
+
 export default {
   name: 'home',
   data () {
@@ -23,7 +32,8 @@ export default {
       showNormal: false,
       showLastBattle: false,
       showSChance: false,
-      showResult: false
+      showResult: false,
+      showModal: false
     }
   },
   components: {
@@ -31,13 +41,15 @@ export default {
     NormalScreen,
     LastBattle,
     SChance,
-    ResultScreen
+    ResultScreen,
+    ModalInput
   },
   mounted () {
     this.showStart = true
     this.showNormal = false
     this.showLastBattle = false
     this.showResult = false
+    this.showModal = false
   },
   computed: {
     // Storeを監視
@@ -78,7 +90,16 @@ export default {
           this.$store.commit('saveScreenName', 0)
       }
     }
+  },
+  methods: {
+    openModal: function() {
+      console.log('Home openModal')
+      this.showModal = true
+    },
+    closeModal: function() {
+      console.log('Home closeModal')
+      this.showModal = false
+    }
   }
-
 }
 </script>
