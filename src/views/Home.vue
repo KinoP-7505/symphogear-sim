@@ -1,13 +1,59 @@
 <template>
   <div class="home">
-    <StartScreen v-if="showStart"/>
-    <NormalScreen v-if="showNormal"/>
-    <LastBattle v-if="showLastBattle"/>
-    <SChance v-if="showSChance"/>
-    <ResultScreen v-if="showResult"/>
+    <!-- 左画面 -->
+    <div class="content-left">
+      <StartScreen v-if="showStart"/>
+      <NormalScreen v-if="showNormal"/>
+      <LastBattle v-if="showLastBattle"/>
+      <SChance v-if="showSChance"/>
+      <ResultScreen v-if="showResult"/>
+      <p>ボタンを押すとモーダルウィンドウが開きます</p>
+      <button @click="showModal = true">開く</button>
+    </div>
+    <!-- 右画面 -->
+    <div class="content-right">
+      <!-- 消費ユキチ -->
+      <div class="yukiti">
+        DEATH YUKICHI
+      </div>
+      <div class="yukiti">
+        {{showPow500}}
+      </div>
+      <!-- 現在玉 -->
+      <div class="yukiti">
+        魂
+      </div>
+      <div class="tamashi">
+        {{showTama}}
+      </div>
+      <!-- 出現ボーナス -->
+      <div class="bonus">
+        <table border="1">
+          <tr>
+            <th>ボーナス</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>通常４Ｒ</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>通常１５Ｒ</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>右打４Ｒ</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>右打８Ｒ</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>右打１２Ｒ</th><th>回数</th>
+          </tr>
+          <tr>
+            <th>右打１５Ｒ</th><th>回数</th>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-    <p>ボタンを押すとモーダルウィンドウが開きます</p>
-    <button @click="showModal = true">開く</button>
 
     <!-- コンポーネント MyModal -->
     <ModalInput v-if="showModal" @close="closeModal()"></ModalInput>
@@ -55,6 +101,12 @@ export default {
     // Storeを監視
     nowScreenId: function () {
       return this.$store.state.screenId
+    },
+    showPow500: function () {
+      return this.$store.state.GameInfo.pow500
+    },
+    showTama: function () {
+      return this.$store.state.GameInfo.soul
     }
   },
   watch: {
@@ -103,3 +155,17 @@ export default {
   }
 }
 </script>
+<style  lang="scss" scoped>
+.home {
+  width: 100%;
+  .content-left {
+    display: inline-block;
+    width: 70%;
+    font-size: 20pt;
+  }
+  .content-right {
+    width: 30%;
+    display: inline-block;
+  }
+}
+</style>

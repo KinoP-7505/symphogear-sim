@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import utils from '@/utility/utils.js'
+import GameInfo from '@/store/storeGameInfo.js'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+  modules: {
+    GameInfo: GameInfo
+  },
   state: {
     // 画面状態
     screenId: '',  
@@ -82,3 +86,4 @@ export default new Vuex.Store({
     }
   }
 })
+export default store

@@ -6,8 +6,9 @@
     <div>
       <button @click="onClickStart">{{buttonLabel}}</button>
     </div>
-    <div>
-      <span>{{showLot}}</span>
+    <div v-show="isNext">
+      <div><span>{{showLot}}</span></div>
+      <div><span>{{showCost}}</span></div>
     </div>
   </div>
 </template>
@@ -18,14 +19,20 @@ export default {
   name: 'NormalScreen',
   data () {
     return {
-      lotteryLabel: '',
-      lotCount: 0,
+      bonusLabel: '',
+      gameCount: 0,
+      bonus: {},
       isNext: false
     }
   },
   computed: {
     showLot: function () {
-      return `抽選結果:${this.lotteryLabel} / ${this.lotCount}回抽選` 
+      return `抽選結果:${this.bonusLabel} / ${this.gameCount}回抽選` 
+    },
+    showCost: function () {
+      let costTama = this.$store.state.GameInfo.costTama
+      let losecost = this.$store.state.GameInfo.loseCost
+      return `消費魂：${costTama}  消費５００Ｐ：${losecost}`
     },
     buttonLabel: function () {
       if (this.isNext) {
@@ -52,12 +59,14 @@ export default {
           resLot.label,
           0
         )
+        this.gameCount = resLot.count
+        this.bonusLabel = resLot.label
         console.log('first BonusInfo', bonus)
-        this.$store.commit('saveBonus', bonus)
-
-        this.lotteryLabel = resLot.label
-        this.lotCount = resLot.count
         this.isNext = true
+        this.$store.commit('saveBonus', bonus)
+        this.$store.commit('GameInfo/updateHisBonusType', resLot.id)
+        // ゲーム数をコストへ  costTama, loseCost
+        this.$store.dispatch('GameInfo/playGame', resLot.count)
       }
     }
   }

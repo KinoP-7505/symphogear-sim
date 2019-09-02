@@ -1,6 +1,6 @@
 <template>
   <!-- コンポーネント Modal -->
-  <Modal @close="closeModal" windowWidth="360px" windowHeight="260px">
+  <Modal @close="closeModal" windowWidth="360px" windowHeight="360px">
     <!-- main-content スロットコンテンツ -->
     <template slot="main-content" @close="closeModal()">
       <div>
