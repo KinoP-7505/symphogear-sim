@@ -4,57 +4,50 @@ const maxLot = 14865120
 const lose = {
     id: 0,
     value: 12792720,
+    tama: 0,
     label: 'ハズレ'
 }
 const ra4R = {
     id: 1,
     value: 999000,
+    tama: 450,
     label: '電チュー４Ｒ'
 }
 const ra8R = {
     id: 2,
     value: 139860,
+    tama: 800,
     label: '電チュー８Ｒ'
 }
 const ra12R = {
     id: 3,
     value: 59940,
+    tama: 1170,
     label: '電チュー１２Ｒ'
 }
 const ra15R = {
     id: 4,
     value: 799200,
+    tama: 1450,
     label: '電チュー１５Ｒ'
 }
 const normal4R = {
     id: 5,
     value: 73656,
+    tama: 364,
     label: '通常４Ｒ'
 }
 const normal15R = {
     id: 6,
     value: 744,
+    tama: 1380,
     label: '通常１５Ｒ'
 }
-// 右打ちV入賞振分定数
-/*
-const v4R = {
-    value: 50,
-    label: 'Ｖ入賞４Ｒ'
-}
-const v8R = {
-    value: 7,
-    label: 'Ｖ入賞８Ｒ'
-}
-const v12R = {
-    value: 3,
-    label: 'Ｖ入賞１２Ｒ'
-}
-const v15R = {
-    value: 40,
-    label: 'Ｖ入賞１５Ｒ'
-}
-*/
+
+// bonusObjectの配列 要素＝index
+const bonusTypes = [
+    lose, ra4R, ra8R, ra12R, ra15R, normal4R, normal15R
+]
 
 const lastBattlePannel = [
     { type: 0, name: '未抽選' },
@@ -197,9 +190,8 @@ const utils = {
     randamLot,
     getLastBattleCharactor,
     lose,
-    ra4R, ra8R, ra12R, ra15R,
-    normal4R,
-    normal15R,
+    ra4R, ra8R, ra12R, ra15R, normal4R, normal15R,
+    bonusTypes,
     lastBattlePannel
 }
 export default utils
@@ -207,9 +199,8 @@ export {
     normalLot,
     getLastBattleCharactor,
     lose,
-    ra4R, ra8R, ra12R, ra15R,
-    normal4R,
-    normal15R,
+    ra4R, ra8R, ra12R, ra15R, normal4R, normal15R,
+    bonusTypes,
     getLotResult,
     lastBattlePannel
 }

@@ -64,9 +64,14 @@ export default {
         console.log('first BonusInfo', bonus)
         this.isNext = true
         this.$store.commit('saveBonus', bonus)
-        this.$store.commit('GameInfo/updateHisBonusType', resLot.id)
+        let payload = {
+          type: bonus.type,
+          mode: 1,
+          count: bonus.count
+        }
+        // this.$store.commit('GameInfo/updateHisBonusType', payload)
         // ゲーム数をコストへ  costTama, loseCost
-        this.$store.dispatch('GameInfo/playGame', resLot.count)
+        this.$store.dispatch('GameInfo/playGame', payload)
       }
     }
   }

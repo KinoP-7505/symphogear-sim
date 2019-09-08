@@ -4,7 +4,8 @@
       <span>結果</span>
     </div>
     <div>
-      <button @click="onClickStart">スタート画面へ戻る</button>
+      <button class="style-button" @click="onClickStart">スタート画面へ戻る</button>
+      <button class="style-button" @click="onClickNext">まだ唄えるッ！頑張れる！</button>
     </div>    
     <div>
       <div v-for="msg in messages" :key="msg">{{msg}}</div>
@@ -20,7 +21,7 @@ export default {
       messages: [] // 結果Messageを配列で
     }
   },
-  mounted() {
+  mounted () {
     // メッセージを作成
     let history = this.$store.state.bonusHistory
     let hisCount = this.$store.state.bonusHistory.length
@@ -43,7 +44,22 @@ export default {
     onClickStart: function() {
       // スタートへ戻る
       this.$store.commit('saveScreenName', 0)
+    },
+    onClickNext: function() {
+      // 通常画面へ遷移
+      this.$store.commit('saveScreenName', 1)
     }
   }
 }
 </script>
+<style  lang="scss" scoped>
+.title {
+  width: 100%;
+  .style-button {
+    margin: 1rem;
+    // margin-right: 1rem;
+    width: 13rem;
+    height: 2rem;
+  }
+}
+</style>

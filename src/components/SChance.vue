@@ -140,6 +140,12 @@ export default {
           // 流れ星失敗
           this.messages.push('流れ星ありませんでした')
           this.messages.push('ＳＣ終了')
+          let payload = {
+            index: 0,
+            mode: 5,
+            count: 11
+          }
+          this.$store.commit('GameInfo/updateHisBonusType', payload)
         }
       }
     },
@@ -154,7 +160,15 @@ export default {
         this.lot0.lot
       )
       console.log('BonusInfo', bonus)
-      this.$store.commit('saveBonus', bonus)      
+      this.$store.commit('saveBonus', bonus)
+      let payload = {
+        type: bonus.type,
+        mode: 4,
+        count: bonus.count
+      }
+      // this.$store.commit('GameInfo/updateHisBonusType', payload)
+      // ゲーム数をコストへ  costTama, loseCost
+      this.$store.dispatch('GameInfo/playGame', payload)
     }
   }
 }

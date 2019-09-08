@@ -105,6 +105,14 @@ export default {
           )
           console.log('BonusInfo', bonus)
           this.$store.commit('saveBonus', bonus)
+          let payload = {
+            type: bonus.type,
+            mode: 2,
+            count: bonus.count
+          }
+          // this.$store.commit('GameInfo/updateHisBonusType', payload)
+          // ゲーム数をコストへ  costTama, loseCost
+          this.$store.dispatch('GameInfo/playGame', payload)          
 
           // VStock判定
           this.$store.commit('saveVStock')
@@ -123,6 +131,12 @@ export default {
           // 5戦目の敗北
           if (this.status === 5) {
             this.panels[idx] += ' >>> わたしは勝機を零しました'
+            let payload = {
+              index: 0,
+              mode: 3,
+              count: 5
+            }
+            this.$store.commit('GameInfo/updateHisBonusType', payload)
           } else {
             this.panels[idx] += ' >>> 敗北'
           }

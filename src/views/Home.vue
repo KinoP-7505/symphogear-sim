@@ -28,27 +28,30 @@
       </div>
       <!-- 出現ボーナス -->
       <div class="bonus">
-        <table border="1">
+        <table class="bonus-table">
           <tr>
-            <th>ボーナス</th><th>回数</th>
+            <th class="left-corumn">ボーナス</th><th class="right-corumn">回数</th>
           </tr>
           <tr>
-            <th>通常４Ｒ</th><th>回数</th>
+            <th>絶唱</th><th>{{$store.state.GameInfo.hisBonus.total}}</th>
           </tr>
           <tr>
-            <th>通常１５Ｒ</th><th>回数</th>
+            <th>通常４Ｒ</th><th>{{$store.state.GameInfo.hisBonus.normal4R}}</th>
           </tr>
           <tr>
-            <th>右打４Ｒ</th><th>回数</th>
+            <th>通常１５Ｒ</th><th>{{$store.state.GameInfo.hisBonus.normal15R}}</th>
           </tr>
           <tr>
-            <th>右打８Ｒ</th><th>回数</th>
+            <th>右打４Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right4R}}</th>
           </tr>
           <tr>
-            <th>右打１２Ｒ</th><th>回数</th>
+            <th>右打８Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right8R}}</th>
           </tr>
           <tr>
-            <th>右打１５Ｒ</th><th>回数</th>
+            <th>右打１２Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right12R}}</th>
+          </tr>
+          <tr>
+            <th>右打１５Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right15R}}</th>
           </tr>
         </table>
       </div>
@@ -122,6 +125,7 @@ export default {
         case 1:
           this.showStart = false
           this.showNormal = true
+          this.showResult = false
           break
         case 2:
           this.showNormal = false
@@ -160,12 +164,29 @@ export default {
   width: 100%;
   .content-left {
     display: inline-block;
+    vertical-align: top;
     width: 70%;
-    font-size: 20pt;
+    height: 100vh;
+    font-size: 16pt;
   }
   .content-right {
-    width: 30%;
     display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    height: 100vh;
+    font-size: 12pt;
+    .bonus {
+      width: 100%;
+      .bonus-table {
+        width: 90%;
+        .left-corumn {
+          width: 60%;
+        }
+        .right-corumn {
+          width: 40%;
+        }
+      }
+    }
   }
 }
 </style>
