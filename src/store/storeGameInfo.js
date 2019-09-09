@@ -12,7 +12,7 @@ const GameInfo = {
     soul: 0,  // 現在玉数
     rentalRate: 125,  // 500円の貸出玉数
     salesRate: 4,  // 1玉の交換レート
-    rotationNum: 13,  // １回転に必要な玉数
+    rotationNum: 12,  // １回転に必要な玉数
     costTama: 0,  // 消費玉
     loseCost: 0,  // 支払コスト
     hisBonus: {

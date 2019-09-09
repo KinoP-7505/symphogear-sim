@@ -150,9 +150,9 @@ export default {
         this.$store.commit('saveScreenName', 3)
         return
       } else if (this.status === 6) {
-        // スタートへ戻る
+        // 結果画面へ
         console.log('最終決戦敗北')
-        this.$store.commit('saveScreenName', 0)
+        this.$store.commit('saveScreenName', 4)
       }
       // 状態を１上げる
       ++this.status

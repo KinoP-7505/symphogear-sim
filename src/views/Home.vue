@@ -17,11 +17,18 @@
         DEATH YUKICHI
       </div>
       <div class="yukiti">
+        {{showYukiti}}
+      </div>
+      <!-- 不足500 -->
+      <div class="yukiti">
+        Loss 500P
+      </div>
+      <div class="yukiti">
         {{showPow500}}
       </div>
       <!-- 現在玉 -->
       <div class="yukiti">
-        魂
+        持ち魂
       </div>
       <div class="tamashi">
         {{showTama}}
@@ -105,8 +112,13 @@ export default {
     nowScreenId: function () {
       return this.$store.state.screenId
     },
+    showYukiti: function () {
+      // 500pを10000pへ変換
+      return Math.floor(this.$store.state.GameInfo.pow500 / 20)
+    },
     showPow500: function () {
-      return this.$store.state.GameInfo.pow500
+      // あまり500p
+      return this.$store.state.GameInfo.pow500 % 20
     },
     showTama: function () {
       return this.$store.state.GameInfo.soul
@@ -136,6 +148,7 @@ export default {
           this.showSChance = true
           break
         case 4:
+          this.showLastBattle = false
           this.showSChance = false
           this.showResult = true
           break 
