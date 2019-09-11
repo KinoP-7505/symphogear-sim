@@ -141,7 +141,7 @@ export default {
           this.messages.push('流れ星ありませんでした')
           this.messages.push('ＳＣ終了')
           let payload = {
-            index: 0,
+            type: 0,
             mode: 5,
             count: 11
           }

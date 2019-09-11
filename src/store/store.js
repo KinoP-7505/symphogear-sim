@@ -15,7 +15,9 @@ const store = new Vuex.Store({
     // 抽選結果をリスト格納する。抽選中＋保留で最大5要素
     lotStock: [],
     // 当選情報  bounusInfo配列
-    bonusHistory: []
+    bonusHistory: [],
+    // 回数履歴  bonusHistory配列
+    playHistory: []
   },
   getters: {
     // 保留リストの0番を返す
@@ -70,6 +72,12 @@ const store = new Vuex.Store({
     },
     saveBonus(state, bonus) {
       state.bonusHistory.push(bonus)
+    },
+    saveBonusHistory(state) {
+      // ボーナス履歴をPUSH
+      state.playHistory.push(state.bonusHistory)
+      // ボーナス履歴を初期化
+      state.bonusHistory = []
     }
   },
   actions: {

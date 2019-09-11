@@ -132,7 +132,7 @@ export default {
           if (this.status === 5) {
             this.panels[idx] += ' >>> わたしは勝機を零しました'
             let payload = {
-              index: 0,
+              type: 0,
               mode: 3,
               count: 5
             }

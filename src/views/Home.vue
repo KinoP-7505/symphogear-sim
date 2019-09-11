@@ -114,11 +114,15 @@ export default {
     },
     showYukiti: function () {
       // 500pを10000pへ変換
-      return Math.floor(this.$store.state.GameInfo.pow500 / 20)
+      let pow = Math.floor(this.$store.state.GameInfo.pow500 / 20)
+      let money = pow * 10000
+      return `${pow} ( ${money} )`
     },
     showPow500: function () {
       // あまり500p
-      return this.$store.state.GameInfo.pow500 % 20
+      let pow = this.$store.state.GameInfo.pow500 % 20
+      let money = pow * 500
+      return `${pow} ( ${money} )`
     },
     showTama: function () {
       return this.$store.state.GameInfo.soul
@@ -187,7 +191,7 @@ export default {
     vertical-align: top;
     width: 30%;
     height: 100vh;
-    font-size: 12pt;
+    font-size: 14pt;
     .bonus {
       width: 100%;
       .bonus-table {

@@ -46,6 +46,8 @@ export default {
       this.$store.commit('saveScreenName', 0)
     },
     onClickNext: function() {
+      // ボーナス履歴を保存
+      this.$store.commit('saveBonusHistory')
       // 通常画面へ遷移
       this.$store.commit('saveScreenName', 1)
     }
