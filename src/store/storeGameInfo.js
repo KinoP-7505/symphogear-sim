@@ -32,6 +32,29 @@ const GameInfo = {
     }
   },
   mutations: {
+    // stateを初期化する
+    initState(state) {
+      state.pow500 = 0  // 500円使用数
+      state.soul = 0  // 現在玉数
+      state.costTama = 0  // 消費玉
+      state.loseCost = 0  // 支払コスト
+      // ボーナス出現履歴
+      state.hisBonus = {
+        normal4R: 0,
+        normal15R: 0,
+        right4R: 0,
+        right8R: 0,
+        right12R: 0,
+        right15R: 0,
+        firstBonus: 0,
+        firstBonusCount: 0,
+        winLastBattle: 0,
+        lastBattleCount: 0,
+        winSC: 0,
+        scCount: 0,
+        total: 0
+      }
+    },
     // 現在玉数を更新
     updateSoul(state, value) {
       console.log('updateSoul', value)

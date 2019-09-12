@@ -81,6 +81,11 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    // Storeを初期化する
+    initStores({commit}) {
+      commit('initState')
+      commit('GameInfo/initState')
+    },
     lotStock({state, commit}) {
       // 5要素までstockする
       while (state.lotStock.length < 5) {

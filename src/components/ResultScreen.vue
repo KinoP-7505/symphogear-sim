@@ -42,6 +42,8 @@ export default {
   },
   methods: {
     onClickStart: function() {
+      // Storeを初期化する
+      this.$store.dispatch('initStores')
       // スタートへ戻る
       this.$store.commit('saveScreenName', 0)
     },

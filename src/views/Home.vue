@@ -7,8 +7,6 @@
       <LastBattle v-if="showLastBattle"/>
       <SChance v-if="showSChance"/>
       <ResultScreen v-if="showResult"/>
-      <p>ボタンを押すとモーダルウィンドウが開きます</p>
-      <button @click="showModal = true">開く</button>
     </div>
     <!-- 右画面 -->
     <div class="content-right">
@@ -40,33 +38,29 @@
             <th class="left-corumn">ボーナス</th><th class="right-corumn">回数</th>
           </tr>
           <tr>
-            <th>絶唱</th><th>{{$store.state.GameInfo.hisBonus.total}}</th>
+            <td>絶唱</td><td>{{$store.state.GameInfo.hisBonus.total}}</td>
           </tr>
           <tr>
-            <th>通常４Ｒ</th><th>{{$store.state.GameInfo.hisBonus.normal4R}}</th>
+            <td>通常４Ｒ</td><td>{{$store.state.GameInfo.hisBonus.normal4R}}</td>
           </tr>
           <tr>
-            <th>通常１５Ｒ</th><th>{{$store.state.GameInfo.hisBonus.normal15R}}</th>
+            <td>通常１５Ｒ</td><td>{{$store.state.GameInfo.hisBonus.normal15R}}</td>
           </tr>
           <tr>
-            <th>右打４Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right4R}}</th>
+            <td>右打４Ｒ</td><td>{{$store.state.GameInfo.hisBonus.right4R}}</td>
           </tr>
           <tr>
-            <th>右打８Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right8R}}</th>
+            <td>右打８Ｒ</td><td>{{$store.state.GameInfo.hisBonus.right8R}}</td>
           </tr>
           <tr>
-            <th>右打１２Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right12R}}</th>
+            <td>右打１２Ｒ</td><td>{{$store.state.GameInfo.hisBonus.right12R}}</td>
           </tr>
           <tr>
-            <th>右打１５Ｒ</th><th>{{$store.state.GameInfo.hisBonus.right15R}}</th>
+            <td>右打１５Ｒ</td><td>{{$store.state.GameInfo.hisBonus.right15R}}</td>
           </tr>
         </table>
       </div>
     </div>
-
-
-    <!-- コンポーネント MyModal -->
-    <ModalInput v-if="showModal" @close="closeModal()"></ModalInput>
   </div>
 </template>
 
@@ -77,8 +71,6 @@ import NormalScreen from '@/components/NormalScreen.vue'
 import LastBattle from '@/components/LastBattle.vue'
 import SChance from '@/components/SChance.vue'
 import ResultScreen from '@/components/ResultScreen.vue'
-
-import ModalInput from '@/components/Modal/ModalInputNumber.vue'
 
 export default {
   name: 'home',
@@ -97,15 +89,13 @@ export default {
     NormalScreen,
     LastBattle,
     SChance,
-    ResultScreen,
-    ModalInput
+    ResultScreen
   },
   mounted () {
     this.showStart = true
     this.showNormal = false
     this.showLastBattle = false
     this.showResult = false
-    this.showModal = false
   },
   computed: {
     // Storeを監視
@@ -165,14 +155,6 @@ export default {
     }
   },
   methods: {
-    openModal: function() {
-      console.log('Home openModal')
-      this.showModal = true
-    },
-    closeModal: function() {
-      console.log('Home closeModal')
-      this.showModal = false
-    }
   }
 }
 </script>
@@ -196,12 +178,76 @@ export default {
       width: 100%;
       .bonus-table {
         width: 90%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        table-layout: fixed;
         .left-corumn {
           width: 60%;
+          background-color:#f5b932;
         }
         .right-corumn {
           width: 40%;
+          background-color: #25b327;
         }
+        th {
+          text-align: center;
+          padding: 7px 0;
+          border-right:solid 1px #ddd;
+          border-left:solid 1px #ddd;
+          width: 155px;
+        }
+        // th:nth-child(1){
+        //   background-color:#dddddd;
+        // }
+        // th:nth-child(3){
+        //   background-color:#f5b932;
+        //   color: white;
+        // }
+        // tr:nth-child(2) td{
+        //   font-size: 30px;
+        // }
+        td {
+          text-align: center;
+          padding: 7px 0;
+          border-right:solid 1px #ddd;
+          border-left:solid 1px #ddd;
+          width: 155px;
+        }
+        td a{
+          background-color: #25b327;
+          color: white;
+          padding:5px 20px;
+          border-radius: 30px;
+          font-weight: bold;
+        }
+        // .popular{
+          // width: 180px;
+        // }
+        th.popular{
+          position: relative;
+        }
+        th.popular span.no1{
+          position: absolute;
+          top: -10px;
+          left:calc(50% - 30px);
+          background: #bdcc28;
+          width: 60px;
+          font-size: 10px;
+          border-radius: 15px;
+          line-height: 1;
+          padding: 5px;
+        }
+        th.popular span.inner{
+          position: absolute;
+          color:white;
+          background-color: #f34955;
+          left: 0;
+          bottom: 0;
+          display: block;
+          width: 180px;
+          padding: 10px 0;
+        }
+        // end
       }
     }
   }

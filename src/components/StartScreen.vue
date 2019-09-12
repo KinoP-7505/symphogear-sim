@@ -15,36 +15,49 @@
           <th class="left-corumn">項目</th><th class="right-corumn">設定値</th>
         </tr>
         <tr>
-          <th>１回転／玉数</th>
-          <th>
+          <td>１回転／玉数</td>
+          <td>
             {{showCountTama}}
             <button @click="onClickConfig(1)">PUSH</button>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>ボーダー</th><th>{{showBoder}}</th>
+          <td>ボーダー</td><td>{{showBoder}}</td>
         </tr>
         <tr>
-          <th>遊戯玉数（500p）</th>
-          <th>
+          <td>遊戯玉数（500p）</td>
+          <td>
             {{showRent}}
             <button @click="onClickConfig(2)">PUSH</button>
-          </th>
+          </td>
         </tr>
         <tr>
-          <th>レート（１玉）</th>
-          <th>
+          <td>レート（１玉）</td>
+          <td>
             {{showChange}}
             <button @click="onClickConfig(3)">PUSH</button>
-          </th>
+          </td>
         </tr>
       </table>
     </div>
+    <!-- コンポーネント MyModal -->
+    <ModalInput v-if="showModalConfig1" @close="closeModalConfig1()"></ModalInput>
   </div>
 </template>
 <script>
+import ModalInput from '@/components/Modal/ModalInputNumber.vue'
+
 export default {
   name: 'StartScreen',
+  data () {
+    return {
+      showModalConfig1: false
+    }
+  },
+  components: {
+    ModalInput
+  },
+
   mounted () {
     // stateの初期化
     this.$store.commit('initState')
@@ -70,9 +83,15 @@ export default {
       this.$store.commit('saveScreenName', 1)
     },
     onClickConfig: function(mode) {
-      // if (mode === 1) {
-      // }
+      // ボーダー設定
+      if (mode === 1) {
+        this.showModalConfig1 = true
+      }
       console.log('onClickConfig', mode)
+    },
+    closeModalConfig1: function() {
+      console.log('Home closeModal')
+      this.showModalConfig1 = false
     }
   }
 }
@@ -85,14 +104,29 @@ export default {
     display: inline-block;
     vertical-align: top;
     width: 80%;
-    .bonus-table {
+    .config-table {
       width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      table-layout: fixed;
+      th {
+        border: 1px solid #666;
+        background-color: #4f4f4f;
+        color: #FFF;
+      }
       .left-corumn {
-        width: 30%;
+        width: 50%;
       }
       .right-corumn {
-        width: 70%;
+        width: 50%;
       }
+      td{
+        text-align: center;
+        padding: 5px 0;
+        border-right:solid 1px #ddd;
+        border-left:solid 1px #ddd;
+        width: 155px;
+      }      
     }
   }
 }
