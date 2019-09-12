@@ -1,5 +1,9 @@
 # symphogear-sim
 
+```
+仕様書
+https://1geki.jp/p3/cr_symphogear-index.php
+```
 ## Project setup
 ```
 npm install
