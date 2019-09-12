@@ -1,0 +1,4 @@
+# node_modules はコミットしない
+node_modules/
+# dist はコミットしない
+dist/
